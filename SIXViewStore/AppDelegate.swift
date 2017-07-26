@@ -16,7 +16,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = newTabBarController()
+        window?.makeKeyAndVisible()
         return true
+    }
+    
+    func newTabBarController() -> UITabBarController {
+        let tabController = UITabBarController()
+        
+        let viewController = ViewController()
+        viewController.tabBarItem.title = "test"
+        
+        let moreController = MoreViewController()
+        let moreNaviController = UINavigationController.init(rootViewController: moreController)
+        moreNaviController.tabBarItem.title = "more"
+        
+        tabController.viewControllers = [viewController, moreNaviController]
+        
+        tabController.viewControllers!.forEach({ (vc) in
+            vc.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -10)
+            vc.tabBarItem.setTitleTextAttributes([NSFontAttributeName:
+                UIFont.systemFont(ofSize: 25)], for: .normal)
+        })
+        
+        return tabController
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
