@@ -93,6 +93,7 @@ extension MoreViewController: UICollectionViewDataSource, UICollectionViewDelega
         let model = models[indexPath.item]
         let vc = model.vcClass.init()
         vc.title = model.title
+        vc.view.backgroundColor = .white
         vc.hidesBottomBarWhenPushed = true
         navigationController!.pushViewController(vc, animated: true)
     }
@@ -111,7 +112,7 @@ extension MoreViewController {
             let label = UILabel()
             label.textColor = .black
             label.textAlignment = .center
-            label.font = .boldSystemFont(ofSize: 25)
+            label.font = .systemFont(ofSize: 20)
             self.contentView.addSubview(label)
             label.snp.makeConstraints({ (make) in
                 make.edges.equalTo(UIEdgeInsetsMake(10, 10, 10, 10))
@@ -127,7 +128,7 @@ extension MoreViewController {
             Model(title: "StateBar", vcClass: StateBarViewController.self),
             Model(title: "CycleView", vcClass: CycleViewController.self),
             Model(title: "PageControl", vcClass: PageControlViewController.self),
-            Model(title: "CycleView", vcClass: CycleViewController.self),
+            Model(title: "FormViewController", vcClass: FormViewController.self),
             Model(title: "StateBar", vcClass: StateBarViewController.self),
             Model(title: "CycleView", vcClass: CycleViewController.self),
             Model(title: "StateBar", vcClass: StateBarViewController.self),

@@ -11,7 +11,7 @@
 import UIKit
 
 
-class YGSFormView: UIView {
+class SIXFormView: UIView {
     
     //view
     var leftTableView: UITableView!
@@ -21,6 +21,9 @@ class YGSFormView: UIView {
     //other
     var titles: [String]
     let widths: [CGFloat]
+    var cellColors = [UIColor(red: 1, green: 1, blue: 1, alpha: 1),
+                      UIColor(red: 245 / 255.0, green: 248 / 255.0, blue: 251 / 255.0, alpha: 1)]
+    
     
     var list = [[String]]() {
         didSet {
@@ -31,7 +34,6 @@ class YGSFormView: UIView {
         }
     }
 
-    
     init(titles: [String], widths: [CGFloat]) {
         self.titles = titles
         self.widths = widths
@@ -91,48 +93,45 @@ class YGSFormView: UIView {
 
 }
 
-extension YGSFormView: UITableViewDataSource {
+extension SIXFormView: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("1:" + tableView.description)
-        print("\(list.count)")
         return list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var list = self.list
         
-        print("2:" + tableView.description)
         if leftTableView === tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")!
             cell.selectionStyle = .none
             cell.textLabel?.text = list[indexPath.row].first
             cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
-            cell.textLabel?.textColor = .white
-            cell.backgroundColor = (indexPath.row % 2 == 0) ? .yellow : .green
+            cell.textLabel?.textColor = .black
+            cell.backgroundColor = cellColors[indexPath.row % cellColors.count]
             return cell
         }
         
         var cell = tableView.dequeueReusableCell(withIdentifier: "YGSFormViewCell") as? YGSFormViewCell
         if cell == nil {
             cell = YGSFormViewCell.init(style: .default, reuseIdentifier: "YGSFormViewCell")
-            cell!.setTextColor(color: .white, font: 14)
+            cell!.setTextColor(color: .black, font: 14)
             cell!.selectionStyle = .none
         }
-        cell!.backgroundColor = (indexPath.row % 2 == 0) ? .yellow : .green
+        cell!.backgroundColor = cellColors[indexPath.row % cellColors.count]
         list[indexPath.row].removeFirst()
         cell!.setTexts(texts: list[indexPath.row])
         return cell!
     }
 }
 
-extension YGSFormView: UITableViewDelegate {
+extension SIXFormView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+        return 50
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -146,25 +145,25 @@ extension YGSFormView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 52
     }
-    
+    //标题栏
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var titles = self.titles
         
         if tableView == leftTableView {
             let contentView = UIView()
-            contentView.backgroundColor = .yellow
+            contentView.backgroundColor = cellColors.last
             
             let label = UILabel()
             label.textAlignment = .center
             label.font = UIFont.systemFont(ofSize: 14)
-            label.textColor = .white
+            label.textColor = .black
             label.text = titles.first!
             contentView.addSubview(label)
             
-//            label.snp.makeConstraints({ (make) in
-//                make.left.equalTo(8)
-//                make.centerY.equalTo(contentView)
-//            })
+            label.snp.makeConstraints({ (make) in
+                make.left.equalTo(8)
+                make.centerY.equalTo(contentView)
+            })
             
             return contentView
         }
@@ -172,8 +171,8 @@ extension YGSFormView: UITableViewDelegate {
         let titleView = YGSFormViewCell(style: .default, reuseIdentifier: nil)
         titles.removeFirst()
         titleView.setTexts(texts: titles)
-        titleView.setTextColor(color: .white, font: 14)
-        titleView.backgroundColor = .yellow
+        titleView.setTextColor(color: .black, font: 14)
+        titleView.backgroundColor = cellColors.last
         return titleView
     }
     
@@ -219,19 +218,19 @@ class YGSFormViewCell: UITableViewCell {
     }
     
     func contructUI() {
+        
         for i in 0..<YGSFormViewCell.lineCount {
-            
             let label = UILabel()
             label.textAlignment = .center
             contentView.addSubview(label)
             
             label.snp.makeConstraints({ (make) in
                 make.centerY.equalTo(contentView)
-                make.width.equalTo(YGSFormViewCell.widths[i])
+                make.width.equalTo(YGSFormViewCell.widths[i] - 10)
                 if i == 0 {
-                    make.left.equalTo(0)
+                    make.left.equalTo(5)
                 } else {
-                    make.left.equalTo(labels.last!.snp.right)
+                    make.left.equalTo(labels[i - 1].snp.right).offset(10)
                 }
             })
             labels.append(label)

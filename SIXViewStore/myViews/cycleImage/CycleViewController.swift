@@ -13,7 +13,7 @@ class CycleViewController: UIViewController, SIXCycleViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
+        automaticallyAdjustsScrollViewInsets = false
         var localImages = [String]()
         for i in 0 ... 7 {
             localImages.append("img\(i).jpg")
