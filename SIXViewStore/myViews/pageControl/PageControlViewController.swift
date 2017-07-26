@@ -26,13 +26,25 @@ class PageControlViewController: UIViewController {
         }
         
         pageControl2 = SIXPageControl()
+        pageControl2.insets = UIEdgeInsetsMake(10, 40, 10, 40)
         pageControl2.pageNumber = 5
-        pageControl2.layer.cornerRadius = 10
-        pageControl2.backgroundColor = UIColor.init(white: 0.9, alpha: 0.3)
+        pageControl2.layer.cornerRadius = 15
+        pageControl2.backgroundColor = UIColor.init(white: 0.85, alpha: 0.3)
         view.addSubview(pageControl2)
         pageControl2.snp.makeConstraints { (make) in
             make.top.equalTo(250)
             make.centerX.equalTo(self.view)
+        }
+        
+        
+        let label = UILabel()
+        label.text = "点击屏幕，测试"
+        label.textColor = .red
+        label.font = UIFont.systemFont(ofSize: 20)
+        view.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.bottom.equalTo(-200)
         }
         
     }
@@ -44,13 +56,12 @@ class PageControlViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print(view.subviews)
     }
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         pageControl1.index = (pageControl1.index + 1) % pageControl1.pageNumber
-        pageControl2.index = (pageControl1.index + 1) % pageControl1.pageNumber
+        pageControl2.index = (pageControl2.index + 1) % pageControl1.pageNumber
     }
     /*
     // MARK: - Navigation

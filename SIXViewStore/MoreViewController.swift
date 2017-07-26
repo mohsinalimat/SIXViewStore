@@ -93,6 +93,7 @@ extension MoreViewController: UICollectionViewDataSource, UICollectionViewDelega
         let model = models[indexPath.item]
         let vc = model.vcClass.init()
         vc.title = model.title
+        vc.hidesBottomBarWhenPushed = true
         navigationController!.pushViewController(vc, animated: true)
     }
 }

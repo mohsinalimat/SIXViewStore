@@ -13,6 +13,14 @@ class SIXPageControl: UIView {
     lazy var normalImage = #imageLiteral(resourceName: "pageControl.png")
     lazy var selectedImage = #imageLiteral(resourceName: "pageControl_selected.png")
 
+//    var dotSize = CGSize(width: 10, height: 10)
+    var insets = UIEdgeInsetsMake(10, 25, 10, 25) {
+        didSet {
+            self.layoutIfNeeded()
+        }
+    }
+    
+    
     var pageNumber: Int = 0 {
         didSet {
             if self.subviews.isEmpty == false {
@@ -23,28 +31,29 @@ class SIXPageControl: UIView {
                 imageView.image = i == 0 ? self.selectedImage : self.normalImage
                 self.addSubview(imageView)
                 imageView.snp.makeConstraints({ (make) in
-                    make.top.equalTo(5)
-                    make.bottom.equalTo(-5)
+                    make.top.equalTo(insets.top)
+                    make.bottom.equalTo(-insets.bottom)
                     if i == 0 {
-                        make.left.equalTo(15)
+                        make.left.equalTo(insets.left)
                     } else {
                         make.left.equalTo(self.subviews[i - 1].snp.right).offset(10)
                     }
                     if i == pageNumber - 1 {
-                        make.right.equalTo(-15)
+                        make.right.equalTo(-insets.right)
                     }
                 })
             }
         }
     }
     
-    var index: Int {
-        set {
-            guard newValue < pageNumber && newValue >= 0 else {
+    var index: Int = 0 {
+        didSet {
+            guard oldValue < pageNumber && oldValue >= 0 else {
+                index = oldValue
                 return
             }
-            let oldSelectedImageView = self.subviews[self.index] as! UIImageView
-            let newSelectedImageView = self.subviews[newValue] as! UIImageView
+            let oldSelectedImageView = self.subviews[oldValue] as! UIImageView
+            let newSelectedImageView = self.subviews[index] as! UIImageView
             
             oldSelectedImageView.image = self.normalImage
             UIView.animate(withDuration: 0.2, animations: {
@@ -55,20 +64,9 @@ class SIXPageControl: UIView {
                     self.layoutIfNeeded()
                 })
             }
-            self.index = newValue
         }
-        get {
-            return self.index
-        }
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.index = 0
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
 
 }
