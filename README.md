@@ -6,3 +6,24 @@
 实现原理，进而自己修改处符合自身需求的视图控件。</p>
 <p>封装是一件比较麻烦的事，往往因为需要面面俱到，添加一些分支代码，从而使其更复杂，不便于轻松理解其实现原理。</p>
 <p>再好的封装，也满足不了各种各样的需求，所以让我们以一种简洁的方式向你展示莫种控件的实现原理，你自己写出符合自身需求的视图控件。</p>
+
+
+<p>
+<h4>轮播视图</h4>
+<img src='./images/cycleview.gif'></img>
+</p>
+
+<p>
+<h4>状态栏</h4>
+<img src='./images/statebar.png'></img>
+</p>
+
+<p>
+<h4>二维表格</h4>
+<img src='./images/form.png'></img>
+</p>
+
+<p>
+<h4>PageControl</h4>
+<img src='./images/pagecontrol.gif'></img>
+</p>
