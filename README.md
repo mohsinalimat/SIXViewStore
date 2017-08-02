@@ -15,12 +15,12 @@
 
 <p>
 <h4>状态栏</h4>
-<img src='./images/statebar.png'></img>
+<img src='./images/statebar.png' width=350></img>
 </p>
 
 <p>
 <h4>二维表格</h4>
-<img src='./images/form.png'></img>
+<img src='./images/form.png' width=350></img>
 </p>
 
 <p>
